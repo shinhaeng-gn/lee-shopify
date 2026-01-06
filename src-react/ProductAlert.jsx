@@ -14,7 +14,7 @@ const ProductAlert = ({ productId, title }) => {
       margin: '1rem 0'
     }}>
       <h3>React Component (Web Component)</h3>
-      <p>이것은 리액트로 만든 알림 컴포넌트입니다.</p>
+      <p>이것은 리액트로 만든 알림 컴포넌트입니다.......!!!.</p>
       <button 
         onClick={handleClick}
         style={{
