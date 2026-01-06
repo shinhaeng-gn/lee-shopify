@@ -1,0 +1,65 @@
+<div class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+    {%- if section.settings.show_component -%}
+      {% comment %} 
+        리액트 빌드 파일을 불러옵니다. 
+        이미 다른 곳에서 불러오고 있다면 중복될 수 있으므로 한 곳에서만 관리하는 것이 좋지만,
+        섹션 단독으로도 작동하게 하려면 여기서 불러옵니다.
+      {% endcomment %}
+      <script src="{{ 'react-components.js' | asset_url }}" defer="defer"></script>
+
+      <div class="react-container">
+        <!-- 테마 편집기의 설정값(section.settings)을 리액트 웹 컴포넌트로 전달 -->
+        <product-alert 
+          title="{{ section.settings.alert_title | escape }}" 
+          product-id="{{ section.settings.alert_product_id }}"
+        ></product-alert>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "리액트 알림 섹션",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_component",
+      "label": "컴포넌트 표시 여부",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "alert_title",
+      "label": "알림 제목",
+      "default": "테마 편집기에서 입력한 제목입니다"
+    },
+    {
+      "type": "text",
+      "id": "alert_product_id",
+      "label": "제품 ID (또는 코드)",
+      "default": "PROD-001"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "색상 스키마",
+      "default": "background-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "리액트 알림 섹션"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .react-container {
+    padding: 2rem 0;
+  }
+</style>
