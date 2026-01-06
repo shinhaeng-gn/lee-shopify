@@ -1,8 +1,8 @@
 import React from 'react';
 
-const ProductAlert = ({ productId, title }) => {
+const ProductAlert = ({ title, description, buttonText, buttonColor }) => {
   const handleClick = () => {
-    alert(`Product ID: ${productId}\nTitle: ${title}`);
+    alert(`알림: ${title}`);
   };
 
   return (
@@ -13,20 +13,20 @@ const ProductAlert = ({ productId, title }) => {
       backgroundColor: '#f9f9f9',
       margin: '1rem 0'
     }}>
-      <h3>React Component (Web Component)</h3>
-      <p>이것은 리액트로 만든 알림 컴포넌트입니다.......!!!.</p>
+      <h3>{title}</h3>
+      <p>{description}</p>
       <button 
         onClick={handleClick}
         style={{
           padding: '8px 16px',
-          backgroundColor: '#008060',
+          backgroundColor: buttonColor || '#008060',
           color: 'white',
           border: 'none',
           borderRadius: '4px',
           cursor: 'pointer'
         }}
       >
-        제품 정보 보기
+        {buttonText}
       </button>
     </div>
   );

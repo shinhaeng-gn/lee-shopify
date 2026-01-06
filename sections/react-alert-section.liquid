@@ -1,18 +1,18 @@
 <div class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
   <div class="page-width">
     {%- if section.settings.show_component -%}
-      {% comment %} 
-        리액트 빌드 파일을 불러옵니다. 
-        이미 다른 곳에서 불러오고 있다면 중복될 수 있으므로 한 곳에서만 관리하는 것이 좋지만,
-        섹션 단독으로도 작동하게 하려면 여기서 불러옵니다.
-      {% endcomment %}
       <script src="{{ 'react-components.js' | asset_url }}" defer="defer"></script>
 
       <div class="react-container">
-        <!-- 테마 편집기의 설정값(section.settings)을 리액트 웹 컴포넌트로 전달 -->
-        <product-alert 
-          title="{{ section.settings.alert_title | escape }}" 
-          product-id="{{ section.settings.alert_product_id }}"
+        <!--
+          Web Component 속성은 하이픈 형식을 권장합니다.
+          r2wc가 자동으로 camelCase(buttonColor)로 변환해줍니다.
+        -->
+        <product-alert
+          title="{{ section.settings.alert_title | escape }}"
+          description="{{ section.settings.alert_description | escape }}"
+          button-text="{{ section.settings.button_text | escape }}"
+          button-color="{{ section.settings.button_color }}"
         ></product-alert>
       </div>
     {%- endif -%}
@@ -35,13 +35,25 @@
       "type": "text",
       "id": "alert_title",
       "label": "알림 제목",
-      "default": "테마 편집기에서 입력한 제목입니다"
+      "default": "리액트 제목"
+    },
+    {
+      "type": "textarea",
+      "id": "alert_description",
+      "label": "알림 내용",
+      "default": "여기에 상세 내용을 입력하세요."
     },
     {
       "type": "text",
-      "id": "alert_product_id",
-      "label": "제품 ID (또는 코드)",
-      "default": "PROD-001"
+      "id": "button_text",
+      "label": "버튼 텍스트",
+      "default": "확인하기"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "버튼 배경색",
+      "default": "#008060"
     },
     {
       "type": "color_scheme",
