@@ -1,0 +1,97 @@
+<div class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+    {%- if section.settings.show_component -%}
+      <div class="pure-alert-container" style="
+        padding: 1rem;
+        border: 2px solid #000;
+        borderRadius: 8px;
+        backgroundColor: #f9f9f9;
+        margin: 1rem 0;
+      ">
+        <h3 class="pure-alert__title">{{ section.settings.alert_title | escape }}</h3>
+        <p class="pure-alert__description">{{ section.settings.alert_description | escape }}</p>
+        
+        <button 
+          type="button"
+          class="pure-alert__button"
+          data-title="{{ section.settings.alert_title | escape }}"
+          style="
+            padding: 8px 16px;
+            background-color: {{ section.settings.button_color }};
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+          "
+        >
+          {{ section.settings.button_text | escape }}
+        </button>
+      </div>
+
+      {%- comment -%} 순수 자바스크립트 로직 {%- endcomment -%}
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          // 해당 섹션 내의 버튼만 찾아서 이벤트를 겁니다.
+          const button = document.querySelector('#shopify-section-{{ section.id }} .pure-alert__button');
+          if (button) {
+            button.addEventListener('click', function() {
+              const title = this.getAttribute('data-title');
+              alert('알림: ' + title);
+            });
+          }
+        });
+      </script>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "순수 리퀴드 알림 섹션",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_component",
+      "label": "컴포넌트 표시 여부",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "alert_title",
+      "label": "알림 제목",
+      "default": "순수 리퀴드 제목"
+    },
+    {
+      "type": "textarea",
+      "id": "alert_description",
+      "label": "알림 내용",
+      "default": "이것은 리액트 없이 만든 버전입니다."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "버튼 텍스트",
+      "default": "확인하기"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "버튼 배경색",
+      "default": "#000000"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "색상 스키마",
+      "default": "background-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "순수 리퀴드 알림 섹션"
+    }
+  ]
+}
+{% endschema %}
